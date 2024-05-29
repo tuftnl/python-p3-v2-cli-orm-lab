@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 from models.__init__ import CONN, CURSOR
-from models.department import Department
-from models.employee import Employee
+from lib.models.make import Make
+from lib.models.model import Model
 
 def seed_database():
-    Employee.drop_table()
-    Department.drop_table()
-    Department.create_table()
-    Employee.create_table()
+    Model.drop_table()
+    Make.drop_table()
+    Make.create_table()
+    Model.create_table()
 
     # Create seed data
     toyota = Department.create("Toyota", "Japan")
