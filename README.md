@@ -28,3 +28,4 @@ This group project was created by Aaron Lin and Erin Yant. The application uses 
 2. Open the project in your code editor.
 3. In the project folder in your terminal run "pipenv install" (to install project dependencies.)
 4. In your terminal run "pipenv shell" to create a shell environment for the program.
+5. Run "python lib/cli.py" in your terminal to interact with the application.
