@@ -1,6 +1,6 @@
 # lib/models/model.py
 from models.__init__ import CURSOR, CONN
-from lib.models.make import Make
+from models.make import Make
 
 
 class Model:
@@ -90,11 +90,11 @@ class Model:
         Update object id attribute using the primary key value of new row.
         Save the object in local dictionary using table row's PK as dictionary key"""
         sql = """
-                INSERT INTO models (name, job_title, make_id)
-                VALUES (?, ?, ?)
+                INSERT INTO models (name, job_title, color, make_id)
+                VALUES (?, ?, ?, ?)
         """
 
-        CURSOR.execute(sql, (self.name, self.job_title, self.make_id))
+        CURSOR.execute(sql, (self.name, self.job_title, self.color, self.make_id))
         CONN.commit()
 
         self.id = CURSOR.lastrowid
@@ -146,10 +146,11 @@ class Model:
             # ensure attributes match row values in case local instance was modified
             model.name = row[1]
             model.job_title = row[2]
-            model.make_id = row[3]
+            model.color = row[3]
+            model.make_id = row[4]
         else:
             # not in dictionary, create new instance and add to dictionary
-            model = cls(row[1], row[2], row[3])
+            model = cls(row[1], row[2], row[3], row[4])
             model.id = row[0]
             cls.all[model.id] = model
         return model
