@@ -8,16 +8,16 @@ class Model:
     # Dictionary of objects saved to the database.
     all = {}
 
-    def __init__(self, name, job_title, color, make_id, id=None):
+    def __init__(self, name, form_style, color, make_id, id=None):
         self.id = id
         self.name = name
-        self.job_title = job_title
+        self.form_style = form_style
         self.color = color
         self.make_id = make_id
 
     def __repr__(self):
         return (
-            f"<model {self.id}: {self.name}, {self.job_title}, {self.color} " +
+            f"<model {self.id}: {self.name}, {self.form_style}, {self.color} " +
             f"Make ID: {self.make_id}>"
         )
 
@@ -68,7 +68,7 @@ class Model:
             CREATE TABLE IF NOT EXISTS models (
             id INTEGER PRIMARY KEY,
             name TEXT,
-            job_title TEXT,
+            form_style TEXT,
             color TEXT,
             make_id INTEGER,
             FOREIGN KEY (make_id) REFERENCES makes(id))
@@ -90,11 +90,11 @@ class Model:
         Update object id attribute using the primary key value of new row.
         Save the object in local dictionary using table row's PK as dictionary key"""
         sql = """
-                INSERT INTO models (name, job_title, color, make_id)
+                INSERT INTO models (name, form_style, color, make_id)
                 VALUES (?, ?, ?, ?)
         """
 
-        CURSOR.execute(sql, (self.name, self.job_title, self.color, self.make_id))
+        CURSOR.execute(sql, (self.name, self.form_style, self.color, self.make_id))
         CONN.commit()
 
         self.id = CURSOR.lastrowid
@@ -104,10 +104,10 @@ class Model:
         """Update the table row corresponding to the current Employee instance."""
         sql = """
             UPDATE models
-            SET name = ?, job_title = ?, make_id = ?
+            SET name = ?, form_style = ?, make_id = ?
             WHERE id = ?
         """
-        CURSOR.execute(sql, (self.name, self.job_title,
+        CURSOR.execute(sql, (self.name, self.form_style,
                              self.make_id, self.id))
         CONN.commit()
 
@@ -130,9 +130,9 @@ class Model:
         self.id = None
 
     @classmethod
-    def create(cls, name, job_title, color, make_id):
+    def create(cls, name, form_style, color, make_id):
         """ Initialize a new Employee instance and save the object to the database """
-        model = cls(name, job_title, color, make_id)
+        model = cls(name, form_style, color, make_id)
         model.save()
         return model
 
@@ -145,7 +145,7 @@ class Model:
         if model:
             # ensure attributes match row values in case local instance was modified
             model.name = row[1]
-            model.job_title = row[2]
+            model.form_style = row[2]
             model.color = row[3]
             model.make_id = row[4]
         else:
