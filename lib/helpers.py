@@ -88,11 +88,11 @@ def find_model_by_id():
 
 def create_model():
     name = input("Enter the model's name: ")
-    job_title = input("Enter the form-type: ")
+    form_style = input("Enter the form-type: ")
     color = input("Enter the color of the vehicle:")
     make_id = input("Enter the model's make id: ")
     try:
-        model = Model.create(name, job_title, color, int(make_id))
+        model = Model.create(name, form_style, color, int(make_id))
         print(f'Success: {model}')
     except Exception as exc:
         print("Error creating model: ", exc)
@@ -104,8 +104,8 @@ def update_model():
         try: 
             name = input("Enter the model's new name: ")
             model.name = name
-            job_title = input("Enter the new form-type: ")
-            model.job_title = job_title
+            form_style = input("Enter the new form-type: ")
+            model.form_style = form_style
             make_id = input("Enter the new make id: ")
             model.make_id = int(make_id)
 
