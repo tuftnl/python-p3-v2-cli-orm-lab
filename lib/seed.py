@@ -11,14 +11,23 @@ def seed_database():
     Employee.create_table()
 
     # Create seed data
-    payroll = Department.create("Payroll", "Building A, 5th Floor")
-    human_resources = Department.create(
-        "Human Resources", "Building C, East Wing")
-    Employee.create("Amir", "Accountant", payroll.id)
-    Employee.create("Bola", "Manager", payroll.id)
-    Employee.create("Charlie", "Manager", human_resources.id)
-    Employee.create("Dani", "Benefits Coordinator", human_resources.id)
-    Employee.create("Hao", "New Hires Coordinator", human_resources.id)
+    toyota = Department.create("Toyota", "Japan")
+    ford = Department.create("Ford", "USA")
+    jeep = Department.create("Jeep", "USA")
+    nissan = Department.create("Nissan", "Japan")
+    Employee.create("4Runner", "SUV", "Black", toyota.id)
+    Employee.create("Tacoma", "Truck", "Silver", toyota.id)
+    Employee.create("Sequoia", "SUV", "White", toyota.id)
+    Employee.create("F150", "Truck", "Black", ford.id)
+    Employee.create("Mustang", "Coupe", "Yellow", ford.id)
+    Employee.create("Bronco", "SUV", "Blue", ford.id)
+    Employee.create("Wrangler", "SUV", "Green", jeep.id)
+    Employee.create("Grand Cherokee", "SUV", "White", jeep.id)
+    Employee.create("Wagoneer", "SUV", "Tan", jeep.id)
+    Employee.create("Compass", "SUV", "Red", jeep.id)
+    Employee.create("Pathfinder", "SUV", "Green", nissan.id)
+    Employee.create("Titan", "Truck", "White", nissan.id)
+    Employee.create("Xterra", "SUV", "Blue", nissan.id)
 
 
 seed_database()

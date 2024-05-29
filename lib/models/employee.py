@@ -8,15 +8,16 @@ class Employee:
     # Dictionary of objects saved to the database.
     all = {}
 
-    def __init__(self, name, job_title, department_id, id=None):
+    def __init__(self, name, job_title, color, department_id, id=None):
         self.id = id
         self.name = name
         self.job_title = job_title
+        self.color = color
         self.department_id = department_id
 
     def __repr__(self):
         return (
-            f"<Employee {self.id}: {self.name}, {self.job_title}, " +
+            f"<Employee {self.id}: {self.name}, {self.job_title}, {self.color} " +
             f"Department ID: {self.department_id}>"
         )
 
@@ -34,17 +35,19 @@ class Employee:
             )
 
     @property
-    def job_title(self):
-        return self._job_title
+    def color(self):
+        return self._color
 
-    @job_title.setter
-    def job_title(self, job_title):
-        if isinstance(job_title, str) and len(job_title):
-            self._job_title = job_title
+    @color.setter
+    def color(self, color):
+        if isinstance(color, str) and len(color):
+            self._color = color
         else:
             raise ValueError(
-                "job_title must be a non-empty string"
+                "color must be a non-empty string"
             )
+
+
 
     @property
     def department_id(self):
@@ -66,6 +69,7 @@ class Employee:
             id INTEGER PRIMARY KEY,
             name TEXT,
             job_title TEXT,
+            color TEXT,
             department_id INTEGER,
             FOREIGN KEY (department_id) REFERENCES departments(id))
         """
@@ -126,9 +130,9 @@ class Employee:
         self.id = None
 
     @classmethod
-    def create(cls, name, job_title, department_id):
+    def create(cls, name, job_title, color, department_id):
         """ Initialize a new Employee instance and save the object to the database """
-        employee = cls(name, job_title, department_id)
+        employee = cls(name, job_title, color, department_id)
         employee.save()
         return employee
 
