@@ -1,5 +1,5 @@
-from lib.models.make import Make
-from lib.models.model import Model
+from models.make import Make
+from models.model import Model
 
 
 def exit_program():
@@ -88,10 +88,11 @@ def find_model_by_id():
 
 def create_model():
     name = input("Enter the model's name: ")
-    job_title = input("Enter the Job Title: ")
+    job_title = input("Enter the form-type: ")
+    color = input("Enter the color of the vehicle:")
     make_id = input("Enter the model's make id: ")
     try:
-        model = Model.create(name, job_title, int(make_id))
+        model = Model.create(name, job_title, color, int(make_id))
         print(f'Success: {model}')
     except Exception as exc:
         print("Error creating model: ", exc)
@@ -103,7 +104,7 @@ def update_model():
         try: 
             name = input("Enter the model's new name: ")
             model.name = name
-            job_title = input("Enter the new job title: ")
+            job_title = input("Enter the new form-type: ")
             model.job_title = job_title
             make_id = input("Enter the new make id: ")
             model.make_id = int(make_id)

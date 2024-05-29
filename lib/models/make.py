@@ -67,7 +67,7 @@ class Make:
         Update object id attribute using the primary key value of new row.
         Save the object in local dictionary using table row's PK as dictionary key"""
         sql = """
-            INSERT INTO makes (name, location)
+            INSERT INTO make (name, location)
             VALUES (?, ?)
         """
 
@@ -80,14 +80,19 @@ class Make:
     @classmethod
     def create(cls, name, location):
         """ Initialize a new Department instance and save the object to the database """
-        make = cls(name, location)
-        make.save()
-        return make
+        existing_make = cls.find_by_name(name)
+        if existing_make:
+        # If a Make with the same name already exists, return it instead of creating a new one
+            return existing_make
+        else:
+            make = cls(name, location)
+            make.save()
+            return make
 
     def update(self):
         """Update the table row corresponding to the current Department instance."""
         sql = """
-            UPDATE makes
+            UPDATE make
             SET name = ?, location = ?
             WHERE id = ?
         """
@@ -99,7 +104,7 @@ class Make:
         delete the dictionary entry, and reassign id attribute"""
 
         sql = """
-            DELETE FROM makes
+            DELETE FROM make
             WHERE id = ?
         """
 
@@ -134,7 +139,7 @@ class Make:
         """Return a list containing a Department object per row in the table"""
         sql = """
             SELECT *
-            FROM makes
+            FROM make
         """
 
         rows = CURSOR.execute(sql).fetchall()
@@ -146,7 +151,7 @@ class Make:
         """Return a Department object corresponding to the table row matching the specified primary key"""
         sql = """
             SELECT *
-            FROM makes
+            FROM make
             WHERE id = ?
         """
 
@@ -158,23 +163,23 @@ class Make:
         """Return a Department object corresponding to first table row matching specified name"""
         sql = """
             SELECT *
-            FROM makes
+            FROM make
             WHERE name is ?
         """
 
         row = CURSOR.execute(sql, (name,)).fetchone()
         return cls.instance_from_db(row) if row else None
 
-    def employees(self):
+    def models(self):
         """Return list of employees associated with current department"""
-        from lib.models.model import Employee
+        from models.model import Model
         sql = """
-            SELECT * FROM employees
+            SELECT * FROM Models
             WHERE make_id = ?
         """
         CURSOR.execute(sql, (self.id,),)
 
         rows = CURSOR.fetchall()
         return [
-            Employee.instance_from_db(row) for row in rows
+            Model.instance_from_db(row) for row in rows
         ]
