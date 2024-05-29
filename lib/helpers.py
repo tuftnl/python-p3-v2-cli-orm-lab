@@ -1,137 +1,137 @@
-from models.department import Department
-from models.employee import Employee
+from lib.models.make import Make
+from lib.models.model import Model
 
 
 def exit_program():
     print("Goodbye!")
     exit()
 
-# We'll implement the department functions in this lesson
+# We'll implement the make functions in this lesson
 
 
-def list_departments():
-    departments = Department.get_all()
-    for department in departments:
-        print(department)
+def list_makes():
+    makes = Make.get_all()
+    for make in makes:
+        print(make)
 
 
-def find_department_by_name():
-    name = input("Enter the department's name: ")
-    department = Department.find_by_name(name)
-    print(department) if department else print(
-        f'Department {name} not found')
+def find_make_by_name():
+    name = input("Enter the make's name: ")
+    make = Make.find_by_name(name)
+    print(make) if make else print(
+        f'Make {name} not found')
 
 
-def find_department_by_id():
+def find_make_by_id():
     # use a trailing underscore not to override the built-in id function
-    id_ = input("Enter the department's id: ")
-    department = Department.find_by_id(id_)
-    print(department) if department else print(f'Department {id_} not found')
+    id_ = input("Enter the make's id: ")
+    make = Make.find_by_id(id_)
+    print(make) if make else print(f'Make {id_} not found')
 
 
-def create_department():
-    name = input("Enter the department's name: ")
-    location = input("Enter the department's location: ")
+def create_make():
+    name = input("Enter the make's name: ")
+    location = input("Enter the make's location: ")
     try:
-        department = Department.create(name, location)
-        print(f'Success: {department}')
+        make = Make.create(name, location)
+        print(f'Success: {make}')
     except Exception as exc:
-        print("Error creating department: ", exc)
+        print("Error creating make: ", exc)
 
 
-def update_department():
-    id_ = input("Enter the department's id: ")
-    if department := Department.find_by_id(id_):
+def update_make():
+    id_ = input("Enter the make's id: ")
+    if make := Make.find_by_id(id_):
         try:
-            name = input("Enter the department's new name: ")
-            department.name = name
-            location = input("Enter the department's new location: ")
-            department.location = location
+            name = input("Enter the make's new name: ")
+            make.name = name
+            location = input("Enter the make's new location: ")
+            make.location = location
 
-            department.update()
-            print(f'Success: {department}')
+            make.update()
+            print(f'Success: {make}')
         except Exception as exc:
-            print("Error updating department: ", exc)
+            print("Error updating make: ", exc)
     else:
-        print(f'Department {id_} not found')
+        print(f'Make {id_} not found')
 
 
-def delete_department():
-    id_ = input("Enter the department's id: ")
-    if department := Department.find_by_id(id_):
-        department.delete()
-        print(f'Department {id_} deleted')
+def delete_make():
+    id_ = input("Enter the make's id: ")
+    if make := Make.find_by_id(id_):
+        make.delete()
+        print(f'Make {id_} deleted')
     else:
-        print(f'Department {id_} not found')
+        print(f'Make {id_} not found')
 
 
-# You'll implement the employee functions in the lab
+# You'll implement the model functions in the lab
 
-def list_employees():
-    employees = Employee.get_all()
-    for employee in employees:
-        print(employee)
-
-
-def find_employee_by_name():
-    name = input("Enter the employee's name: ")
-    employee = Employee.find_by_name(name)
-    print (employee) if employee else print (f"Employee {name} not found")
+def list_models():
+    models = Model.get_all()
+    for model in models:
+        print(model)
 
 
-def find_employee_by_id():
+def find_model_by_name():
+    name = input("Enter the model's name: ")
+    model = Model.find_by_name(name)
+    print (model) if model else print (f"Model {name} not found")
+
+
+def find_model_by_id():
     # use a trailing underscore not to override the built-in id function
-    id_ = input("Enter the department's id: ")
-    employee = Employee.find_by_id(id_)
-    print(employee) if employee else print(f'Department {id_} not found')
+    id_ = input("Enter the make's id: ")
+    model = Model.find_by_id(id_)
+    print(model) if model else print(f'Make {id_} not found')
 
 
-def create_employee():
-    name = input("Enter the employee's name: ")
+def create_model():
+    name = input("Enter the model's name: ")
     job_title = input("Enter the Job Title: ")
-    department_id = input("Enter the employee's department id: ")
+    make_id = input("Enter the model's make id: ")
     try:
-        employee = Employee.create(name, job_title, int(department_id))
-        print(f'Success: {employee}')
+        model = Model.create(name, job_title, int(make_id))
+        print(f'Success: {model}')
     except Exception as exc:
-        print("Error creating employee: ", exc)
+        print("Error creating model: ", exc)
 
 
-def update_employee():
-    id_ = input("Enter the employees's id: ")
-    if employee := Employee.find_by_id(id_):
+def update_model():
+    id_ = input("Enter the models's id: ")
+    if model := Model.find_by_id(id_):
         try: 
-            name = input("Enter the employee's new name: ")
-            employee.name = name
+            name = input("Enter the model's new name: ")
+            model.name = name
             job_title = input("Enter the new job title: ")
-            employee.job_title = job_title
-            department_id = input("Enter the new department id: ")
-            employee.department_id = int(department_id)
+            model.job_title = job_title
+            make_id = input("Enter the new make id: ")
+            model.make_id = int(make_id)
 
-            employee.update()
-            print(f'Success {employee}')
+            model.update()
+            print(f'Success {model}')
         except Exception as exc:
-            print("Error updating Employee", exc)
+            print("Error updating model", exc)
     else: 
-        print(f'Employee {id_} not found')
+        print(f'Model {id_} not found')
 
 
-def delete_employee():
-    id_ = input("Enter the employee's id: ")
-    if employee := Employee.find_by_id(id_):
-        employee.delete()
-        print(f'Employee {id_} deleted')
+def delete_model():
+    id_ = input("Enter the model's id: ")
+    if model := Model.find_by_id(id_):
+        model.delete()
+        print(f'Model {id_} deleted')
     else:
-        print(f'Employee {id_} not found')
+        print(f'Model {id_} not found')
 
 
-def list_department_employees():
-    id_ = input("Enter the department's id: ")
-    if department := Department.find_by_id(id_):
+def list_make_models():
+    id_ = input("Enter the make's id: ")
+    if make := Make.find_by_id(id_):
         try:
-            for employee in department.employees():
-                print(employee)
+            for model in make.models():
+                print(model)
         except Exception as exc:
-            print("Error listing employees", exc)
+            print("Error listing models", exc)
     else : 
-        print(f"Can not find department by id of {id_}")
+        print(f"Can not find make by id of {id_}")
