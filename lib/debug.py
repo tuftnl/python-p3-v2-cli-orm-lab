@@ -1,26 +1,35 @@
 #!/usr/bin/env python3
 
 from models.__init__ import CONN, CURSOR
-from lib.models.make import Make
-from lib.models.model import Model
+from models.make import Make
+from models.model import Model
 import ipdb
 
-
 def reset_database():
-    Employee.drop_table()
-    Department.drop_table()
-    Department.create_table()
-    Employee.create_table()
+    Model.drop_table()
+    Make.drop_table()
+    Make.create_table()
+    Model.create_table()
 
     # Create seed data
-    payroll = Department.create("Payroll", "Building A, 5th Floor")
-    human_resources = Department.create(
-        "Human Resources", "Building C, East Wing")
-    Employee.create("Amir", "Accountant", payroll.id)
-    Employee.create("Bola", "Manager", payroll.id)
-    Employee.create("Charlie", "Manager", human_resources.id)
-    Employee.create("Dani", "Benefits Coordinator", human_resources.id)
-    Employee.create("Hao", "New Hires Coordinator", human_resources.id)
+    toyota = Make.create("Toyota", "Japan")
+    ford = Make.create("Ford", "USA")
+    jeep = Make.create("Jeep", "USA")
+    nissan = Make.create("Nissan", "Japan")
+    
+    Model.create("4Runner", "SUV", "Black", toyota.id)
+    Model.create("Tacoma", "Truck", "Silver", toyota.id)
+    Model.create("Sequoia", "SUV", "White", toyota.id)
+    Model.create("F150", "Truck", "Black", ford.id)
+    Model.create("Mustang", "Coupe", "Yellow", ford.id)
+    Model.create("Bronco", "SUV", "Blue", ford.id)
+    Model.create("Wrangler", "SUV", "Green", jeep.id)
+    Model.create("Grand Cherokee", "SUV", "White", jeep.id)
+    Model.create("Wagoneer", "SUV", "Tan", jeep.id)
+    Model.create("Compass", "SUV", "Red", jeep.id)
+    Model.create("Pathfinder", "SUV", "Green", nissan.id)
+    Model.create("Titan", "Truck", "White", nissan.id)
+    Model.create("Xterra", "SUV", "Blue", nissan.id)
 
 
 reset_database()
